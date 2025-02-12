@@ -1,25 +1,30 @@
 # Ripple Thumb Keycaps
 
-![Front view of thumb cluster](./images/front.png)
-
 ![Top view of thumb cluster](./images/top.png)
 
-This is a thumb cluster I designed for use with choc v1 keycaps, with choc spacing. It consists of:
-
-- A tucky 18x17mm thumb
-- An outer 18x29.75mm thumb
-- An unusually shaped central thumb
-
+This is a thumb cluster I designed for use with choc v1 keycaps, with choc spacing.
 The design has a "wavey" shape, which is most obvious when viewing from behind:
 
 ![Rear view of thumb cluster](./images/back.png)
 
-The exact topography of the cluster is difficult to see in images, and honestly also in person. You really need to feel it in order to appreciate it. It is designed for the thumb to rest on the keys sideways, no manuform style thumbs. The upper corners of the inner and outer thumbs are warped so that the thumb is cupped slightly when moving away from the central point. The vertical midpoint of the keys is ever so slightly convex, which gives the thumb a nicer rest in the transition from knuckle to nail. This convex curvature bends across the surface of the middle keycap. Likewise, the central keycap is convex horizontally as I found that to be more comfortable. 
+The exact topography of the cluster is difficult to see in images. 
 
-A lower corner of the middle keycap is bent to prevent discomfort when only pressing the tucky thumb - for me, I can comfortably press the tucky thumb by only tucking the joint furthest from my wrist and not moving the other joint. Likewise, the outer thumb can be comfortably pressed by only moving the joint closer to my wrist. The upper corner of the central keycap is extended for aesthetic purposes, while a 1.75u vertical outer keycap was chosen to give the thumb plenty of space to rest on. The middle keycap is *just* wide enough that it works with multiple levels of curvature for the index fingers, but also narrow enough that overstretching of the thumb is less of a risk. (I would encourage you to primarily use the thumb side that you naturally rest on, and avoid using the other side too much). The gap between keys is narrow with no difference in topography aside from a narrow steep valley. The goal here was to simultaneously allow for comfortable thumb combos, but also use the valley to make it easy to feel the boundary between keys.
+## Motivation
 
-Finally, the spacing between the physical switches (which is *highly* unusual) is acceptable (though probably not ideal for most) for usage with three 1u keycaps (or two 1u keycaps and a single vertical 1.75u keycap, though where you'd find a vertical 1.75u keycap is beyond me).
+There exist a number of keycap designs out there with a "columnar" or a "saddle" shape - KP Lame, Chicago Steno, OLS to name a few.
+Said shape lends itself very well to four fingers of the hand, but it does not work for thumbs. Thumbs move in an arc rather than up and down.
 
-If you wish to design a board around this thumb cluster, the spacing and rotations you'll need to provide to the keys is shown below:
+This cluster was designed to provide a similar smooth and comfortable feeling to thumbs as one can obtain from CS. It is designed for the thumb to rest on the keys sideways. The upper corners of the inner and outer thumbs are warped so that the thumb is cupped slightly when moving away from the central point. The vertical midpoint of the keys is ever so slightly convex, which gives the thumb a nicer rest in the transition from knuckle to nail. This convex curvature bends across the surface of the middle keycap. The "wave" visible from the rear provides a similar effect to that of a "saddle".
 
-![Fusion sketch of thumb cluster layout](./images/sketch.png)
+## Design Guidelines
+
+To maximise comfort and minimise thumb motion, custom spacing is needed for the thumb cluster. See e.g. Apiaster for how it is possible to design a keyboard with flexible support for both these keycaps and standard 1u caps.
+
+ 
+The positions needed for the cluster are as follows:
+
+Assume that the (x,y) centerpoint of the tucky 1u thumb's switch is at (0,0), where coordinate directions match that in KiCAD (-y points away from the user). Then:
+
+- The (x,y) centerpoint of the middle unusually shaped key is at (19, 4), with a 10 degree rotation applied to it.
+- The (x,y) centerpoint of the reachy key is at (37.5, 8), with a 16 degree rotation applied to it.
+
