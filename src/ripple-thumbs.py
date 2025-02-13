@@ -37,17 +37,19 @@ for cap in keycaps:
     mx_cap = cap + extrude(bottom_face, -(-4.4-extrusion_dist - __BRIM_STEM_DIST))
     mx_caps.append(mx_cap + mx_stem)
 
-mx_sprue_caps = [
-    Pos(8.75, -9) *  mx_caps[0], 
-    Pos(19+18+8.75,-4-9) *  Rot(0,0,-10) *mx_caps[1],
-    Pos(19+8.18-.5,-8-9+1.89) *Rot(0,0,0) *mx_caps[2],
-    ]
-sprues = [Pos(42, -3, -0.4),Pos(52, -3, -0.4),Pos(30, -3, -0.4),Pos(23, -3, -0.4), Pos(5.75, -3, -0.4), Pos(11.75, -3, -0.4)] * Cylinder(0.75, 6, align=(Align.CENTER, Align.CENTER, Align.MAX))
-sprue = Pos(5,-3,-6.4) * Rot(0,90) * Cylinder(.75,48, align=(Align.CENTER, Align.CENTER, Align.MIN))
-midsprues = [Pos(42,0,-6.4),Pos(52,0,-6.4),Pos(30,0,-6.4),Pos(23,0,-6.4),Pos(11.75,0,-6.4),Pos(5.75,0,-6.4)] * (Rot(90,0) * Cylinder(0.75, 3, align=(Align.CENTER, Align.CENTER, Align.MIN)))
+def make_sprues(caps):
+    sprue_caps = [
+        Pos(8.75, -9) *  caps[0], 
+        Pos(19+18+8.75,-4-9) *  Rot(0,0,-10) *caps[1],
+        Pos(19+8.18-.5,-8-9+1.89) *Rot(0,0,0) *caps[2],
+        ]
+    sprues = [Pos(42, -3, -0.4),Pos(52, -3, -0.4),Pos(30, -3, -0.4),Pos(23, -3, -0.4), Pos(5.75, -3, -0.4), Pos(11.75, -3, -0.4)] * Cylinder(0.75, 6, align=(Align.CENTER, Align.CENTER, Align.MAX))
+    sprue = Pos(5,-3,-6.4) * Rot(0,90) * Cylinder(.75,48, align=(Align.CENTER, Align.CENTER, Align.MIN))
+    midsprues = [Pos(42,0,-6.4),Pos(52,0,-6.4),Pos(30,0,-6.4),Pos(23,0,-6.4),Pos(11.75,0,-6.4),Pos(5.75,0,-6.4)] * (Rot(90,0) * Cylinder(0.75, 3, align=(Align.CENTER, Align.CENTER, Align.MIN)))
 
-mx_sprued = sprue + mx_sprue_caps + sprues + midsprues
-mx_sprued += mirror(mx_sprued)
+    sprued = sprue + sprue_caps + sprues + midsprues
+    sprued += mirror(sprued)
+    return sprued
 
 names = ['tuck', 'mid', 'reach']
 
@@ -59,10 +61,10 @@ for cap,name in zip(mx_caps,names):
     print(f"Export success stl/mx-{name}-left.stl: {export_stl(cap, f"stl/mx-{name}-left.stl")}")
     print(f"Export success stl/mx-{name}-right.stl: {export_stl(mirror(cap, Plane.YZ), f"stl/mx-{name}-right.stl")}")
 
-print(f"Export success stl/mx-sprued.stl: {export_stl(mx_sprued, f"stl/mx-sprued.stl")}")
+print(f"Export success stl/mx-sprued.stl: {export_stl(make_sprues(mx_caps), f"stl/mx-sprued.stl")}")
+print(f"Export success stl/choc-sprued.stl: {export_stl(make_sprues(choc_caps), f"stl/choc-sprued.stl")}")
 
 
 if __name__ == '__main__':
     from ocp_vscode import *
-    set_port(3940)
     show_all()
