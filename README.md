@@ -2,7 +2,7 @@
 
 ![Top view of thumb cluster](./images/top.png)
 
-This is a thumb cluster I designed for use with choc v1 keycaps, with choc spacing.
+This is a thumb cluster I designed originally for use with choc v1, but now has both choc and MX stems. The tucky key has choc sizing (18x17mm), the others have unique sizings.
 The design has a "wavey" shape, which is most obvious when viewing from behind:
 
 ![Rear view of thumb cluster](./images/back.png)
