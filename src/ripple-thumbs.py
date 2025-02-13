@@ -24,7 +24,8 @@ choc_stem = cross + [Pos(2.85, 0), Pos(-2.85, 0)] * stem
 choc_caps = [x + choc_stem for x in keycaps]
 
 # mx stem
-mx_stem = Cylinder(5.6/2, 4.4,align=(Align.CENTER, Align.CENTER, Align.MAX)) - [Rot(0,0,90), Rot(0,0)] * Box(4.1, 1.35, 4.4,align=(Align.CENTER, Align.CENTER, Align.MAX))
+mx_stem = Cylinder(5.6/2, 4.4,align=(Align.CENTER, Align.CENTER, Align.MAX)) \
+    - [Rot(0,0,90), Rot(0,0)] * Box(4.1, 1.35, 4.4,align=(Align.CENTER, Align.CENTER, Align.MAX))
 mx_stem = fillet(mx_stem.edges().sort_by_distance((0,0,-2))[:4], 0.3)
 
 
@@ -36,6 +37,18 @@ for cap in keycaps:
     mx_cap = cap + extrude(bottom_face, -(-4.4-extrusion_dist - __BRIM_STEM_DIST))
     mx_caps.append(mx_cap + mx_stem)
 
+mx_sprue_caps = [
+    Pos(8.75, -9) *  mx_caps[0], 
+    Pos(19+18+8.75,-4-9) *  Rot(0,0,-10) *mx_caps[1],
+    Pos(19+8.18-.5,-8-9+1.89) *Rot(0,0,0) *mx_caps[2],
+    ]
+sprues = [Pos(42, -3, -0.4),Pos(52, -3, -0.4),Pos(30, -3, -0.4),Pos(23, -3, -0.4), Pos(5.75, -3, -0.4), Pos(11.75, -3, -0.4)] * Cylinder(0.75, 6, align=(Align.CENTER, Align.CENTER, Align.MAX))
+sprue = Pos(5,-3,-6.4) * Rot(0,90) * Cylinder(.75,48, align=(Align.CENTER, Align.CENTER, Align.MIN))
+midsprues = [Pos(42,0,-6.4),Pos(52,0,-6.4),Pos(30,0,-6.4),Pos(23,0,-6.4),Pos(11.75,0,-6.4),Pos(5.75,0,-6.4)] * (Rot(90,0) * Cylinder(0.75, 3, align=(Align.CENTER, Align.CENTER, Align.MIN)))
+
+mx_sprued = sprue + mx_sprue_caps + sprues + midsprues
+mx_sprued += mirror(mx_sprued)
+
 names = ['tuck', 'mid', 'reach']
 
 for cap,name in zip(choc_caps,names):
@@ -46,6 +59,10 @@ for cap,name in zip(mx_caps,names):
     print(f"Export success stl/mx-{name}-left.stl: {export_stl(cap, f"stl/mx-{name}-left.stl")}")
     print(f"Export success stl/mx-{name}-right.stl: {export_stl(mirror(cap, Plane.YZ), f"stl/mx-{name}-right.stl")}")
 
+print(f"Export success stl/mx-sprued.stl: {export_stl(mx_sprued, f"stl/mx-sprued.stl")}")
+
+
 if __name__ == '__main__':
     from ocp_vscode import *
+    set_port(3940)
     show_all()
